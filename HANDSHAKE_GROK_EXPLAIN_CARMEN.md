@@ -70,8 +70,16 @@ This creates **chaining overhead**:
 **CARMEN's Solution:**
 Process all stages **internally** in a single pass, then return one unified response.
 
+**Name & Acronym:**
+**CARMEN** stands for **Comprehensive Affective Reasoning Model with Empathetic Nuance**
+
+- **Comprehensive**: Complete emotional intelligence analysis in one unified system
+- **Affective Reasoning**: Emotional understanding and response generation
+- **Model**: Structured approach to emotional intelligence processing
+- **Empathetic Nuance**: Subtle understanding of emotional context and depth
+
 **Name Origin:**
-**CARMEN** (Spanish/Latin: "song," "poem," "verse") - Like a song that harmonizes multiple instruments into one beautiful whole.
+**CARMEN** (Spanish/Latin: "song," "poem," "verse") - Like a song that harmonizes multiple instruments into one beautiful whole, combining comprehensive reasoning with empathetic understanding.
 
 ---
 

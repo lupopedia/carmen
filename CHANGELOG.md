@@ -28,6 +28,153 @@ superpositionally: ["FILEID_CARMEN_CHANGELOG"]
 
 ---
 
+## Version 0.1.6 (2025-12-06) - Official Acronym Definition
+
+### Added
+
+- **Official CARMEN Acronym Definition**
+  - CARMEN: **Comprehensive Affective Reasoning Model with Empathetic Nuance**
+  - Documented in README.md and handshake documents
+  - Explains the comprehensive and nuanced approach to emotional intelligence
+
+---
+
+## Version 0.1.5 (2025-12-06) - Enhanced Circuit Breaker (Three-State Pattern)
+
+### Added
+
+- **Enhanced Circuit Breaker** (`src/CircuitBreaker.php`)
+  - Three-state pattern: Closed → Open → Half-Open → Closed
+  - Success threshold for graceful recovery
+  - Configurable thresholds (failure, success, timeout)
+  - Callback hooks for state changes, failures, successes
+  - Request timeout per operation
+  - Extensible for persistence (Redis/APCu commented)
+  - Enhanced implementation provided by WOLFITH-GROK
+
+### Improved
+
+- **Circuit Breaker Resilience**
+  - Graceful recovery through half-open state
+  - Prevents flooding with probation period
+  - Success threshold ensures stability before closing
+  - Callback integration ready for logging/monitoring
+
+### Documentation
+
+- **Circuit Breaker Enhancement** (`docs/WOLFITH_GROK_CIRCUIT_BREAKER_ENHANCEMENT.md`)
+  - Response to enhanced implementation
+  - Usage examples and recommendations
+  - Integration guidance
+
+---
+
+## Version 0.1.4 (2025-12-06) - Security & Circuit Breaker Implementation
+
+### Added
+
+- **Circuit Breaker Pattern** (`src/CircuitBreaker.php`)
+  - Failure tracking with threshold
+  - Auto-reset after timeout
+  - Integration ready for LLM calls
+  - Implementation provided by WOLFITH-GROK
+
+- **Security Manager** (`public/agents/carmen/includes/security.php`)
+  - API key authentication
+  - CSRF token protection
+  - Rate limiting (in-memory, Redis-ready)
+  - Input validation and sanitization
+  - Output encoding for XSS prevention
+  - Security headers
+  - Implementation based on WOLFITH-GROK recommendations
+
+- **Updated API Endpoint** (`public/agents/carmen/api.php`)
+  - Integrated security manager
+  - Input validation on all requests
+  - API key authentication
+  - Rate limiting enforced
+  - Error handling improved
+
+### Improved
+
+- **Security**
+  - All inputs validated and sanitized
+  - API key authentication implemented
+  - Rate limiting prevents abuse
+  - CSRF protection available
+  - Security headers set
+  - XSS protection via output encoding
+
+- **Error Handling**
+  - Circuit breaker pattern ready for LLM calls
+  - Failure tracking and auto-recovery
+  - Better error messages
+
+### Documentation
+
+- **WOLFITH-GROK Review Integration** (`docs/WOLFITH_GROK_REVIEW_INTEGRATION.md`)
+  - Response to additional guidance
+  - Implementation status tracking
+  - Code integration notes
+
+### Next Steps
+
+- [ ] Update CarmenAgent with soft dependencies (in progress)
+- [ ] Integrate circuit breaker into LLM calls
+- [ ] Create TokenManager for budget tracking
+- [ ] Complete ERIS and METIS stages
+
+---
+
+## Version 0.1.3 (2025-12-06) - DeepSeek Critical Review Received
+
+### Added
+
+- **DeepSeek Critical Review** (`docs/DEEPSEEK_CRITICAL_REVIEW_RESPONSE.md`)
+  - Comprehensive response to DeepSeek's architectural review
+  - Action items and implementation priorities
+  - Security vulnerability acknowledgments
+  - Performance expectations revision
+
+### Critical Issues Identified
+
+- **Security Vulnerabilities** (HIGH PRIORITY)
+  - Missing API authentication
+  - No input validation/sanitization
+  - SQL injection risks
+  - XSS vulnerabilities
+  - Missing CSRF protection
+  - No rate limiting
+
+- **Architectural Concerns** (HIGH PRIORITY)
+  - Hard sequential dependencies create cascading failure risk
+  - Need soft dependencies with fallback defaults
+  - Circuit breaker pattern needed
+  - Token management strategy needs improvement
+
+- **Performance Reality Check** (MEDIUM PRIORITY)
+  - Sequential calls won't achieve 3-5x speedup alone
+  - Need parallel processing and caching
+  - Token usage goals achievable with optimization
+
+### Planned Fixes
+
+- [ ] API security implementation (API keys, rate limiting)
+- [ ] Input validation and sanitization
+- [ ] Soft dependencies framework
+- [ ] Circuit breaker pattern
+- [ ] Progressive token summarization
+- [ ] Parallel processing for optional stages
+
+### Next Steps
+
+- Implement HIGH PRIORITY security fixes (Week 1)
+- Refactor dependencies to soft dependencies (Week 1)
+- Complete LLM integration in stages (Week 2)
+- Build database and dialog tools (Week 3-4)
+
+---
+
 ## Version 0.1.2 (2025-12-06) - PHP Interface Complete & DeepSeek Handshake
 
 ### Added
