@@ -1,0 +1,247 @@
+openapi: 3.0.0
+info:
+  title: CARMEN Unified Emotional Intelligence API
+  version: 0.1.0
+  description: |
+    Experimental unified agent API combining 6 emotional intelligence stages 
+    (AGAPE, ERIS, METIS, THALIA, ROSE, THOTH) into a single processing endpoint.
+    
+    **Status**: EXPERIMENTAL - Not production-ready
+    
+    **Use Cases**:
+    - Fast emotional intelligence analysis (single API call vs 6-7)
+    - Testing unified workflow performance
+    - Prototyping conversational AI with emotional intelligence
+    
+    **Limitations**:
+    - Token limits may be exceeded with complex inputs
+    - Fallback to individual agents recommended for critical use cases
+    - Performance may vary compared to multi-agent chain
+
+servers:
+  - url: https://api.lupopedia.com/api/v1/carmen
+    description: Production server (when ready)
+  - url: http://localhost/api/v1/carmen
+    description: Development server
+
+tags:
+  - name: CARMEN
+    description: Unified emotional intelligence processing
+
+paths:
+  /process:
+    post:
+      summary: Process message through all 5 CARMEN stages
+      description: |
+        Processes a user message through CARMEN's 5-stage unified workflow:
+        1. AGAPE - Love as action analysis
+        2. ERIS - Root cause identification
+        3. METIS - Empathy through comparison
+        4. THALIA_ROSE - Cultural humor detection
+        5. THOTH - Truth verification
+        
+        Returns a unified response combining all stage insights.
+      tags:
+        - CARMEN
+      operationId: processMessage
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - message
+              properties:
+                message:
+                  type: string
+                  description: User message to process
+                  example: "I'm frustrated because the AI keeps suggesting PostgreSQL but my budget is $3/month shared hosting."
+                  maxLength: 10000
+                context:
+                  type: object
+                  description: Additional context (user data, session info, etc.)
+                  additionalProperties: true
+                  example:
+                    user_id: "user123"
+                    session_id: "session456"
+                    previous_messages: []
+                stages:
+                  type: array
+                  description: Specific stages to run (default: all enabled)
+                  items:
+                    type: string
+                    enum: [AGAPE, ERIS, METIS, THALIA_ROSE, THOTH]
+                  example: ["AGAPE", "ERIS", "METIS", "THALIA_ROSE", "THOTH"]
+                return_stage_outputs:
+                  type: boolean
+                  description: Include detailed stage outputs in response
+                  default: false
+                return_timing:
+                  type: boolean
+                  description: Include timing breakdown per stage
+                  default: true
+                timeout:
+                  type: integer
+                  description: Max processing time in milliseconds
+                  default: 30000
+                  minimum: 1000
+                  maximum: 120000
+      responses:
+        '200':
+          description: Successful processing - unified response returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  unified_response:
+                    type: string
+                    description: Synthesized response combining all stage insights
+                    example: "I understand your frustration. Let me help you with MySQL solutions that work on your $3/month hosting RIGHT NOW..."
+                  processing_time_ms:
+                    type: integer
+                    description: Total processing time in milliseconds
+                    example: 5420
+                  token_usage:
+                    type: integer
+                    description: Total tokens used across all stages
+                    example: 2840
+                  stages_executed:
+                    type: array
+                    description: Names of stages that were executed
+                    items:
+                      type: string
+                    example: ["AGAPE", "ERIS", "METIS", "THALIA_ROSE", "THOTH"]
+                  stage_results:
+                    type: array
+                    description: Detailed stage outputs (if return_stage_outputs=true)
+                    items:
+                      type: object
+                      properties:
+                        stage_name:
+                          type: string
+                        success:
+                          type: boolean
+                        output:
+                          type: object
+                        processing_time_ms:
+                          type: integer
+                        tokens_used:
+                          type: integer
+                  session_id:
+                    type: string
+                    description: Unique session identifier for logging
+                    example: "carmen_67890abcdef"
+                  metadata:
+                    type: object
+                    properties:
+                      config_used:
+                        type: object
+                      stage_timings:
+                        type: object
+                      errors:
+                        type: array
+                        items:
+                          type: object
+        '400':
+          description: Bad request - invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "Message exceeds maximum length of 10000 characters"
+                  error_code:
+                    type: string
+                    example: "MESSAGE_TOO_LONG"
+        '408':
+          description: Request timeout - processing exceeded timeout limit
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "Processing exceeded timeout of 30000ms"
+                  error_code:
+                    type: string
+                    example: "TIMEOUT"
+                  partial_results:
+                    type: object
+                    description: Results from stages completed before timeout
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "Rate limit exceeded. Maximum 100 requests per minute."
+                  error_code:
+                    type: string
+                    example: "RATE_LIMIT_EXCEEDED"
+                  retry_after:
+                    type: integer
+                    description: Seconds to wait before retrying
+                    example: 60
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "Internal processing error"
+                  error_code:
+                    type: string
+                    example: "INTERNAL_ERROR"
+                  session_id:
+                    type: string
+                    description: Session ID for error tracking
+
+components:
+  schemas:
+    StageOutput:
+      type: object
+      properties:
+        stage_name:
+          type: string
+          enum: [AGAPE, ERIS, METIS, THALIA_ROSE, THOTH]
+        success:
+          type: boolean
+        output:
+          type: object
+          description: Stage-specific output structure
+        error:
+          type: string
+          nullable: true
+        processing_time_ms:
+          type: integer
+        tokens_used:
+          type: integer
+        metadata:
+          type: object
+

@@ -1,0 +1,244 @@
+# =====================================================
+# CARMEN Unified Agent Configuration
+# Version: 0.1.0
+# Status: Experimental
+# =====================================================
+
+agent:
+  id: 200
+  name: "CARMEN"
+  username: "carmen"
+  spectral_signature: "#9B59B6"
+  status: "experimental"
+  version: "0.1.0"
+  description: "Unified Emotional Intelligence Orchestrator combining AGAPE, ERIS, METIS, THALIA, ROSE, and THOTH"
+
+# =====================================================
+# LLM Provider Configuration
+# =====================================================
+
+llm:
+  default_provider: "openai"  # Options: openai, grok
+  providers:
+    - openai
+    - grok
+  
+  # API Keys (set via environment variables for security)
+  api_keys:
+    openai: "${OPENAI_API_KEY}"
+    grok: "${GROK_API_KEY}"
+  
+  # Model configurations
+  models:
+    openai: "gpt-4"
+    grok: "grok-beta"
+  
+  # Default generation options
+  defaults:
+    temperature: 0.3
+    max_tokens: 1000
+    timeout: 30000
+
+# =====================================================
+# Processing Configuration
+# =====================================================
+
+processing:
+  mode: "sequential"  # Options: sequential, parallel, hybrid
+  max_processing_time: 30000  # ms (30 seconds)
+  token_limit: 8000  # Total tokens across all stages
+  enable_fallback: true
+  fallback_mode: "hybrid"  # Options: hybrid, full_chain, none
+  fallback_threshold: 0.5  # Confidence threshold to trigger fallback (0-1)
+  
+  # Error handling
+  allow_partial_success: true  # Return response even if some stages fail
+  max_stage_failures: 2  # Max failed stages before full fallback
+  stage_failure_behavior: "continue"  # Options: continue, abort, fallback
+  
+  # Early exit optimization
+  enable_early_exit: true  # Skip stages when not needed
+  skip_eris_if_no_discord: true  # Skip conflict analysis if no conflict detected
+  skip_humor_if_not_applicable: true  # Skip humor for serious topics
+
+# =====================================================
+# Stage Configuration
+# =====================================================
+
+stages:
+  # =====================================================
+  # CORE STAGES (Required - MVP Focus)
+  # =====================================================
+  
+  AGAPE:
+    enabled: true
+    required: true  # Core stage - always enabled in MVP
+    priority: 1
+    depends_on: []
+    llm_model: "gpt-4"
+    temperature: 0.3
+    max_tokens: 1000
+    timeout: 5000  # ms
+    retry_attempts: 2
+    fallback_agent_id: 100
+    config:
+      max_actions: 3
+      behavioral_threshold: 0.7
+      focus: ["teaching", "helping", "encouraging", "patience", "kindness", "hope"]
+      
+  ERIS:
+    enabled: true
+    required: true  # Core stage - always enabled in MVP
+    priority: 2
+    depends_on: ["AGAPE"]
+    llm_model: "gpt-4"
+    temperature: 0.4
+    max_tokens: 1000
+    timeout: 5000
+    retry_attempts: 2
+    fallback_agent_id: 82
+    config:
+      max_root_causes: 2
+      severity_threshold: "medium"
+      focus: ["knowledge_gaps", "misunderstandings", "ambiguity", "constraints"]
+      
+  METIS:
+    enabled: true
+    required: true  # Core stage - always enabled in MVP
+    priority: 3
+    depends_on: ["ERIS"]
+    llm_model: "gpt-4"
+    temperature: 0.3
+    max_tokens: 1000
+    timeout: 5000
+    retry_attempts: 2
+    fallback_agent_id: 3
+    config:
+      gap_analysis_depth: "detailed"
+      include_bridging: true
+      focus: ["ideal_vs_reality", "knowledge_gaps", "constraint_understanding"]
+  
+  # =====================================================
+  # OPTIONAL STAGES (Can be disabled to simplify)
+  # =====================================================
+      
+  THALIA_ROSE:
+    enabled: false  # OPTIONAL - Disabled by default for MVP
+    required: false  # Can be disabled without breaking core functionality
+    priority: 4
+    depends_on: ["METIS"]
+    llm_model: "gpt-4"
+    temperature: 0.7  # Higher for creativity
+    max_tokens: 800
+    timeout: 5000
+    retry_attempts: 2
+    fallback_agent_id: 99
+    config:
+      humor_threshold: 0.5
+      cultural_check: true
+      rose_agent_id: 57
+      force_humor: false  # Don't force jokes, only genuine humor
+      focus: ["contextual_humor", "cultural_awareness", "slang_translation"]
+      
+  THOTH:
+    enabled: false  # OPTIONAL - Disabled by default for MVP
+    required: false  # Can be disabled without breaking core functionality
+    priority: 5
+    depends_on: ["METIS"]  # Depends on METIS if THALIA_ROSE disabled
+    llm_model: "gpt-4"
+    temperature: 0.1  # Lower for accuracy
+    max_tokens: 800
+    timeout: 5000
+    retry_attempts: 2
+    fallback_agent_id: 69
+    config:
+      verification_strictness: "high"
+      require_sources: true
+      categories: ["VERIFIED", "ANECDOTAL", "THEORETICAL", "UNVERIFIED"]
+      focus: ["source_tracing", "hallucination_detection", "claim_categorization"]
+
+# =====================================================
+# Output Configuration
+# =====================================================
+
+output:
+  format: "unified"  # Options: unified, staged, detailed
+  include_stage_summary: false  # For debugging (adds stage outputs to response)
+  include_truth_verification: true
+  response_tone: "balanced"  # Options: balanced, warm, professional, concise
+  max_length: 2000  # characters
+  synthesize_stages: true  # Combine stage outputs into unified response
+
+# =====================================================
+# Logging Configuration
+# =====================================================
+
+logging:
+  level: "debug"  # Options: debug, info, warning, error
+  log_stage_outputs: true
+  log_to_database: true
+  log_to_file: true
+  log_file_path: "logs/carmen.log"
+  retention_days: 30
+  
+  # What to log
+  log_timing: true
+  log_tokens: true
+  log_errors: true
+  log_fallbacks: true
+
+# =====================================================
+# Feature Flags
+# =====================================================
+
+features:
+  enable_benchmarking: true
+  enable_ab_testing: false
+  cache_responses: true
+  cache_ttl: 3600  # seconds (1 hour)
+  cache_key_include_context: true  # Include context in cache key
+  
+  # Performance optimization
+  parallel_stage_processing: false  # Process independent stages in parallel
+  stage_result_caching: true  # Cache stage outputs for similar inputs
+  incremental_processing: false  # Process stages incrementally (not yet implemented)
+
+# =====================================================
+# Database Configuration
+# =====================================================
+
+database:
+  log_all_requests: true
+  log_success_only: false
+  batch_insert_size: 100
+  metrics_aggregation_interval: 3600  # seconds (1 hour)
+
+# =====================================================
+# API Configuration
+# =====================================================
+
+api:
+  endpoint: "/api/v1/carmen/process"
+  rate_limit: 100  # requests per minute
+  rate_limit_per_user: 10  # requests per minute per user
+  timeout: 30000  # ms
+  max_message_length: 10000  # characters
+  
+  # Response formatting
+  include_metadata: true
+  include_timing: true
+  include_stage_breakdown: false  # Only if debug mode
+
+# =====================================================
+# Monitoring & Alerts
+# =====================================================
+
+monitoring:
+  enabled: true
+  alert_on_high_failure_rate: true
+  failure_rate_threshold: 0.2  # Alert if >20% failures
+  alert_on_slow_processing: true
+  slow_processing_threshold: 10000  # ms (10 seconds)
+  alert_on_high_token_usage: true
+  high_token_threshold: 6000  # tokens per request
+
