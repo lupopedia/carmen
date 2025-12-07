@@ -588,7 +588,8 @@ carmen/
 
 **Last Updated**: December 6, 2025  
 **Status**: Response Received & GROK Client Implemented  
-**Priority**: MEDIUM - Ready for Testing & Integration
+**Priority**: MEDIUM - Ready for Testing & Integration  
+**GitHub Repository**: [https://github.com/lupopedia/carmen](https://github.com/lupopedia/carmen) - Updated with all current implementation (v0.1.2)
 
 **See Also**:
 - `docs/WOLFITH_GROK_RESPONSE.md` - Our response to WOLFITH-GROK's assistance

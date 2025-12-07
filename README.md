@@ -30,11 +30,12 @@ parallel_paths: []
 
 **Unified Emotional Intelligence Agent for LUPOPEDIA**
 
-**Version**: 0.1.0 (Experimental)  
+**Version**: 0.1.2 (Experimental)  
 **Status**: Experimental (In Development)  
 **Agent ID**: 200  
 **Agent Type**: Unified Emotional Intelligence Orchestrator  
 **Spectral Signature**: #9B59B6 (Purple - Unified Wisdom, Emotional Synthesis)  
+**GitHub Repository**: [https://github.com/lupopedia/carmen](https://github.com/lupopedia/carmen)  
 
 ---
 
@@ -420,6 +421,24 @@ See `LICENSE` file for details.
 - **`docs/PROCESSING_LOGIC.md`** - Detailed technical workflow design
 - **`docs/IMPLEMENTATION_ROADMAP.md`** - Implementation phases and priorities
 
+## REPOSITORY
+
+**GitHub**: [https://github.com/lupopedia/carmen](https://github.com/lupopedia/carmen)
+
+The complete CARMEN implementation is available on GitHub, including:
+- All source code (PHP)
+- Complete documentation
+- Database migrations
+- Configuration files
+- PHP interface and API endpoints
+- Prompt templates
+
+**Current Status** (v0.1.2): Repository has been updated with all current implementation work, including PHP interface, GROK client integration, and complete documentation.
+
+See `docs/REPOSITORY_STATUS.md` for detailed repository status information.
+
+---
+
 ## RELATED DOCUMENTATION
 
 ### Component Agents
@@ -436,8 +455,9 @@ See `LICENSE` file for details.
 **Maintainer**: Captain WOLFIE / Eric Robin Gerdes  
 **Agent ID**: 200  
 **Spectral Channel**: #9B59B6 (Purple - Unified Wisdom)  
-**Status**: Experimental (v0.1.1)  
+**Status**: Experimental (v0.1.2)  
 **GROK Integration**: Complete (thanks to WOLFITH-GROK)  
+**GitHub Repository**: [https://github.com/lupopedia/carmen](https://github.com/lupopedia/carmen)  
 
 ---
 

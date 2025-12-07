@@ -176,8 +176,9 @@ superpositionally: ["FILEID_CARMEN_CHANGELOG"]
 ---
 
 **Last Updated**: December 6, 2025  
-**Current Version**: 0.1.1 (Experimental)  
-**Status**: GROK Client Implemented, Ready for LLM Integration Testing  
+**Current Version**: 0.1.2 (Experimental)  
+**Status**: PHP Interface Complete, GROK Client Implemented, Ready for LLM Integration Testing  
+**GitHub Repository**: [https://github.com/lupopedia/carmen](https://github.com/lupopedia/carmen) - Updated with all current implementation  
 
 ---
 
