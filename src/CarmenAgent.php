@@ -104,7 +104,12 @@ class CarmenAgent {
             }
             
             // Synthesize unified response using intelligent synthesizer
-            $unifiedResponse = $this->synthesizer->synthesize($stageResults, $message, $context);
+            // Convert StageResult objects to array format for synthesis
+            $stageResultsArray = [];
+            foreach ($stageResults as $stageName => $result) {
+                $stageResultsArray[$stageName] = $result;
+            }
+            $unifiedResponse = $this->synthesizer->synthesize($stageResultsArray, $message, $context);
             
             // Calculate metrics
             $totalTimeMs = (int)((microtime(true) - $startTime) * 1000);

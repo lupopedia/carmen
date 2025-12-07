@@ -117,6 +117,10 @@ class AgapeStage implements StageInterface {
         return $this->enabled;
     }
     
+    public function isRequired(): bool {
+        return $this->config['required'] ?? true;
+    }
+    
     public function getFallbackAgentId(): ?int {
         return $this->fallbackAgentId;
     }

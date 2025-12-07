@@ -28,6 +28,44 @@ superpositionally: ["FILEID_CARMEN_CHANGELOG"]
 
 ---
 
+## Version 0.1.2 (2025-12-06) - PHP Interface Complete & DeepSeek Handshake
+
+### Added
+
+- **PHP Interface & Tools** (`public/agents/carmen/`)
+  - Complete chat interface (`index.php`) with AJAX processing
+  - REST API endpoint (`api.php`) for message processing
+  - Processor integration (`includes/carmen_processor.php`)
+  - Visual stage indicators and processing status
+  - Real-time message processing with error handling
+
+- **DeepSeek Handshake Document** (`HANDSHAKE_DEEPSEEK_EXPLAIN_CARMEN.md`)
+  - Comprehensive explanation of CARMEN architecture
+  - Current implementation status
+  - Request for critical review and suggestions
+  - Detailed questions on architecture, security, and performance
+
+### Improved
+
+- **Code Structure**
+  - Fixed `AgapeStage.php` to include `isRequired()` method
+  - Updated `CarmenAgent.php` for proper namespace usage
+  - Cleaned up duplicate StageResult class
+
+- **Documentation**
+  - Added PHP interface documentation
+  - Updated implementation status
+
+### Planned
+
+- **PHP Tools for Database & Dialog Files**
+  - Database query interface for processing logs
+  - Dialog file management tools
+  - Configuration management interface
+  - Performance metrics dashboard
+
+---
+
 ## Version 0.1.1 (2025-12-06) - GROK Integration & WOLFITH-GROK Assistance
 
 ### Added
