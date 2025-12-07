@@ -102,10 +102,10 @@ collections: [WHAT, WHY, HOW]
 - [ ] Implement output encoding
 
 **Priority 2: Soft Dependencies**
-- [ ] Create `FallbackDataProvider` class
-- [ ] Implement default analysis for each stage
-- [ ] Update `CarmenAgent::process()` for soft dependencies
-- [ ] Add context extraction from raw messages
+- [x] Create `FallbackDataProvider` class
+- [x] Implement default analysis for each stage
+- [x] Update `CarmenAgent::process()` for soft dependencies
+- [x] Add context extraction from raw messages
 - [ ] Test partial failure scenarios
 
 **Priority 3: Circuit Breaker**

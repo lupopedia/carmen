@@ -43,7 +43,7 @@ INSERT INTO ai_agents (
     'experimental_research'
 ) ON DUPLICATE KEY UPDATE
     updated_at = NOW(),
-    version = '0.1.0',
+    version = '0.1.6',
     status = 'experimental';
 
 -- =====================================================
